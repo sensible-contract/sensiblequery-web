@@ -84,20 +84,9 @@
           </tbody>
         </table>
 
-        <nav aria-label="Input Page">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Prev</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-
+        <div v-if="currTxObj.nIn > 16">
+          <Pagination :total="currTxObj.nIn" @change="changeTxInPagination"></Pagination>
+        </div>
       </div>
 
       <div class="col-6">
@@ -141,20 +130,9 @@
           </tbody>
         </table>
 
-        <nav aria-label="Output Page">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Prev</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-
+        <div v-if="currTxObj.nOut > 16">
+          <Pagination :total="currTxObj.nOut" @change="changeTxOutPagination"></Pagination>
+        </div>
       </div>
     </div>
   </div>
@@ -162,14 +140,19 @@
 
 <script>
  import axios from 'axios'
+ import Pagination from '../components/page.vue'
 
  export default {
+   components: {
+     Pagination
+   },
+
    data: function () {
      return {
        currTxId: "",
-       currTxObj: {timestamp:0},
+       currTxObj: {timestamp:0, nIn: 0, nOut: 0},
        currTxIns: [],
-       currTxOuts: []
+       currTxOuts: [],
      }
    },
 
@@ -182,12 +165,12 @@
         * }*/
        if (to.path.startsWith("/txid/") == true ) {
 	      this.viewTxIdInfo(to.params.txid)
-         this.viewTxIns(to.params.txid)
-         this.viewTxOuts(to.params.txid)
+         this.viewTxIns(to.params.txid, 0)
+         this.viewTxOuts(to.params.txid, 0)
        } else if (to.path.startsWith("/tx/") == true ) {
          this.viewTxIdInfoInside(to.params.height, to.params.txid)
-         this.viewTxInsInside(to.params.height, to.params.txid)
-         this.viewTxOutsInside(to.params.height, to.params.txid)
+         this.viewTxInsInside(to.params.height, to.params.txid, 0)
+         this.viewTxOutsInside(to.params.height, to.params.txid, 0)
        }
 
        if (to.path.startsWith("/txout/") == true ) {
@@ -205,12 +188,12 @@
       * }*/
      if (this.$route.path.startsWith("/txid/") == true ) {
 	    this.viewTxIdInfo(this.$route.params.txid)
-       this.viewTxIns(this.$route.params.txid)
-       this.viewTxOuts(this.$route.params.txid)
+       this.viewTxIns(this.$route.params.txid, 0)
+       this.viewTxOuts(this.$route.params.txid, 0)
      } else if (this.$route.path.startsWith("/tx/") == true ) {
        this.viewTxIdInfoInside(this.$route.params.height, this.$route.params.txid)
-       this.viewTxInsInside(this.$route.params.height, this.$route.params.txid)
-       this.viewTxOutsInside(this.$route.params.height, this.$route.params.txid)
+       this.viewTxInsInside(this.$route.params.height, this.$route.params.txid, 0)
+       this.viewTxOutsInside(this.$route.params.height, this.$route.params.txid, 0)
      }
 
      if (this.$route.path.startsWith("/txout/") == true ) {
@@ -220,18 +203,25 @@
    },
 
    methods: {
-     viewTxIns: function (txid) {
-       this.updateTxIns(txid, this.$root.apiPoint + "tx/"+ txid +"/ins")
+     changeTxInPagination (current) {
+       this.viewTxInsInside(this.currTxObj.height, this.currTxObj.txid, (current-1)*16)
      },
-     viewTxOuts: function (txid) {
-       this.updateTxOuts(txid, this.$root.apiPoint + "tx/"+ txid +"/outs")
+     changeTxOutPagination (current) {
+       this.viewTxOutsInside(this.currTxObj.height, this.currTxObj.txid, (current-1)*16)
      },
 
-     viewTxInsInside: function (height, txid) {
-       this.updateTxIns(txid, this.$root.apiPoint + "height/"+ height +"/tx/"+ txid +"/ins")
+     viewTxIns: function (txid, cursor) {
+       this.updateTxIns(txid, this.$root.apiPoint + "tx/"+ txid +"/ins", cursor)
      },
-     viewTxOutsInside: function (height, txid) {
-       this.updateTxOuts(txid, this.$root.apiPoint + "height/"+ height +"/tx/"+ txid +"/outs")
+     viewTxOuts: function (txid, cursor) {
+       this.updateTxOuts(txid, this.$root.apiPoint + "tx/"+ txid +"/outs", cursor)
+     },
+
+     viewTxInsInside: function (height, txid, cursor) {
+       this.updateTxIns(txid, this.$root.apiPoint + "height/"+ height +"/tx/"+ txid +"/ins", cursor)
+     },
+     viewTxOutsInside: function (height, txid, cursor) {
+       this.updateTxOuts(txid, this.$root.apiPoint + "height/"+ height +"/tx/"+ txid +"/outs", cursor)
      },
 
      viewTxIdInfo: function (txid) {
@@ -265,8 +255,8 @@
                      .then(
                        response => {
                          if (response.data.code == 0) {
-                           this.viewTxInsInside(response.data.data.height, response.data.data.txid)
-                           this.viewTxOutsInside(response.data.data.height, response.data.data.txid)
+                           this.viewTxInsInside(response.data.data.height, response.data.data.txid, 0)
+                           this.viewTxOutsInside(response.data.data.height, response.data.data.txid, 0)
                          } else {
                            this.$root.message = "unspent"
                          }
@@ -274,10 +264,16 @@
                      )
      },
 
-     updateTxIns: function(txid, url) {
+     updateTxIns: function(txid, url, cursor) {
        this.$root.message = "..."
        axios
-         .get(url)
+         .get(url, {
+           params: {
+		       cursor: cursor,
+		       size: 16
+	        }
+
+         })
          .then(
            response => {
              if (response.data.code == 0) {
@@ -289,10 +285,15 @@
          )
      },
 
-     updateTxOuts: function(txid, url) {
+     updateTxOuts: function(txid, url, cursor) {
        this.$root.message = "..."
        axios
-         .get(url)
+         .get(url, {
+           params: {
+		       cursor: cursor,
+		       size: 16
+	        }
+         })
          .then(
            response => {
              if (response.data.code == 0) {

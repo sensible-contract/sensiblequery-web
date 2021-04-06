@@ -86,13 +86,23 @@
         </tr>
       </tbody>
     </table>
+
+    <div v-if="currBlockObj.ntx > 16">
+      <Pagination :total="currBlockObj.ntx" @change="changeTxPagination"></Pagination>
+    </div>
+
   </div>
 </template>
 
 <script>
  import axios from 'axios'
+ import Pagination from '../components/page.vue'
 
  export default {
+   components: {
+     Pagination
+   },
+
    data: function () {
      return {
        currBlockId: "",
@@ -110,7 +120,7 @@
        if (to.path.startsWith("/txs-of-blkid/")) {
          this.viewBlockIdTxs(to.params.blkid)
        } else if (to.path.startsWith("/txs/")) {
-         this.viewBlockHeightTxs(to.params.height, to.params.blkid)
+         this.viewBlockHeightTxs(to.params.height, to.params.blkid, 0)
        }
 
        this.viewBlockIdInfo(this.$route.params.blkid)
@@ -124,17 +134,26 @@
        this.currBlockTxs = []
      }
      if (this.$route.path != "/txs") {
-       this.viewBlockHeightTxs(this.$route.params.height, this.$route.params.blkid)
+       this.viewBlockHeightTxs(this.$route.params.height, this.$route.params.blkid, 0)
      }
 	  this.viewBlockIdInfo(this.$route.params.blkid)
    },
 
    methods: {
-     viewBlockHeightTxs: function (height, blkid) {
+     changeTxPagination: function (current) {
+       this.viewBlockHeightTxs(this.currBlockObj.height, this.currBlockObj.blkid, (current-1)*16)
+     },
+
+     viewBlockHeightTxs: function (height, blkid, cursor) {
        this.currBlockId = blkid
        this.currBlockTxs = []
        axios
-         .get(this.$root.apiPoint + "height/"+ height +"/block/txs")
+         .get(this.$root.apiPoint + "height/"+ height +"/block/txs", {
+           params: {
+		       cursor: cursor,
+		       size: 16
+	        }
+         })
          .then(
            response => {
              this.currBlockTxs = response.data.data

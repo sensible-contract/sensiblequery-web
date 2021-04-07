@@ -8,7 +8,7 @@
         <tr>
           <th class="text-right">#</th>
           <th class="text-center">utxo</th>
-          <th class="text-right">value</th>
+          <th class="text-right">satoshi</th>
         </tr>
       </thead>
       <tbody>

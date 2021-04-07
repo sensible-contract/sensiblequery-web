@@ -19,11 +19,31 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/utxo">UTXO</router-link>
           </li>
+
           <li class="nav-item">
-            <router-link class="nav-link" to="/genesis">Genesis</router-link>
+              <router-link class="nav-link" to="/nft/codehash">NFTCode</router-link>
           </li>
+
           <li class="nav-item">
-            <router-link class="nav-link" to="/genesis-utxo">GenesisUTXO</router-link>
+              <router-link class="nav-link" to="/ft/codehash">FTCode</router-link>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+               id="navbarDropdown"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false"> CodeHash </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <router-link class="nav-link" to="/nft/codehash">NFTCode</router-link>
+
+              <div class="dropdown-divider"></div>
+
+              <router-link class="nav-link" to="/ft/codehash">FTCode</router-link>
+
+            </div>
           </li>
 
         </ul>
@@ -72,10 +92,6 @@
           this.$router.push(`/address/${this.navInputValue}`)
         } else if (this.$route.path.startsWith("/utxo")) {
           this.$router.push(`/utxo/${this.navInputValue}`)
-        } else if (this.$route.path.startsWith("/genesis-utxo")) {
-          this.$router.push(`/genesis-utxo/${this.navInputValue}`)
-        } else if (this.$route.path.startsWith("/genesis")) {
-          this.$router.push(`/genesis/${this.navInputValue}`)
         }
       },
 

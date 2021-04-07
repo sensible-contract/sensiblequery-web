@@ -6,9 +6,9 @@
       </li>
 
       <li class="page-item"
-          :class="current===index?'active':''" v-for="index in pages" :key="index"  ref="pages">
+          :class="current===index?'active':''" v-for="index in pages" :key="index" ref="pages">
         <a @click="jumpToPage(index)" v-if="isShowBtn(index)" class="page-link" >{{index}}</a>
-        <a v-else-if="isShowEllipsis (index)" class="page-link">&#8230;</a>
+        <span v-else-if="isShowEllipsis (index)" class="page-link">&#8230;</span>
       </li>
 
       <li class="page-item" :class="nextDisable?'disabled':''" >
@@ -30,11 +30,36 @@ export default {
     return {
       current: 1, // 定义当前页current
       pageSize: 16, // 每页显示数据pageSize
-      pages: [], // 页码列表pages
-      pageLength: 0 // 页码长度pageLength
+      pageLength: 0, // 页码长度pageLength
+      pagesBase: new Array(10)
     }
   },
   computed: {
+    pages () {
+      this.pagesBase[0] = 1
+      this.pagesBase[1] = 2
+      for (let i = 2; i < 10; i++) {
+        this.pagesBase[i] = this.pageLength+1
+      }
+
+      let i = 2
+      let d = this.current-3
+      for (; d < this.current+3; d++) {
+        if (d > 2 && d < this.pageLength-1) {
+          this.pagesBase[i] = d
+          i++
+        }
+      }
+      if (3 < this.pageLength) {
+        this.pagesBase[i] = this.pageLength-1
+        i++;
+      }
+      if (2 < this.pageLength) {
+        this.pagesBase[i] = this.pageLength
+      }
+      return this.pagesBase
+    },
+
     preDisable () { // 是否禁用上一页
       return this.current === 1
     },
@@ -59,10 +84,6 @@ export default {
       const more = this.total % this.pageSize ? 1 : 0
       this.pageLength = parseInt(this.total / this.pageSize) + more
       console.log("pageLength:", this.pageLength)
-      this.pages = new Array(this.pageLength)
-      for (let i = 0; i < this.pageLength; i++) {
-        this.pages[i] = i + 1
-      }
     },
     jumpToPage (index) { // 点击页码
       this.current = index
@@ -74,23 +95,29 @@ export default {
       this.current += this.current === this.pageLength ? 0 : 1
     },
     isShowBtn (index) { // 页码是否被省略
+      if (0 >= index) {
+        return false
+      }
+      if (this.pageLength < index) {
+        return false
+      }
+
       if (this.pageLength < 8) {
         return true
-      } else {
-        if (index === 1 || index === this.pageLength) {
-          return true
-        } else {
-          if (this.current < 4 && index < 6) {
-            return true
-          } else if (this.current > this.pageLength - 4 && index > this.pageLength - 6) {
-            return true
-          } else if (index < this.current + 3 && index > this.current - 3) {
-            return true
-          } else {
-            return false
-          }
-        }
       }
+      if (index === 1 || index === this.pageLength) {
+        return true
+      }
+      if (this.current < 4 && index < 6) {
+        return true
+      }
+      if (this.current > this.pageLength - 4 && index > this.pageLength - 6) {
+        return true
+      }
+      if (index < this.current + 3 && index > this.current - 3) {
+        return true
+      }
+      return false
     },
     isShowEllipsis (index) { // 是否显示省略号
       return index === 2 || index === this.pageLength - 1

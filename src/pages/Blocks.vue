@@ -33,6 +33,8 @@
       </div>
     </div>
 
+    <Pagination :total="blockMaxHeight" @change="changeBlockPagination"></Pagination>
+
     <table class="table">
       <thead>
         <tr>
@@ -64,13 +66,19 @@
 
 <script>
  import axios from 'axios'
+ import Pagination from '../components/page.vue'
 
  export default {
+   components: {
+     Pagination
+   },
+
    data: function () {
      return {
-       pageSize: 64,
+       pageSize: 16,
        blockStartHeight: 0,
        blockEndHeight: 0,
+       blockMaxHeight: 0,
        Blocks: []
      }
    },
@@ -91,6 +99,11 @@
    },
 
    methods: {
+     changeBlockPagination: function (current) {
+       this.blockEndHeight = current*16
+       this.viewBlockRange(0)
+     },
+
      viewBlockRange: function (step) {
        this.blockEndHeight = parseInt(this.blockEndHeight) + step
        this.blockStartHeight = this.blockEndHeight - this.pageSize
@@ -131,6 +144,7 @@
          .then(
            response => {
              this.blockEndHeight = response.data.data.blocks
+             this.blockMaxHeight = this.blockEndHeight
              this.viewBlockRange(0)
              this.$root.message = response.data.msg
            }

@@ -39,6 +39,11 @@
               <th class="text-right">Fee:</th>
               <td class="text-left"><samp> {{ (currTxObj.inSatoshi - currTxObj.outSatoshi)/100000000.0 }} </samp></td>
             </tr>
+
+            <tr>
+              <th class="text-right">sat/B:</th>
+              <td class="text-left"><samp> {{ ((currTxObj.inSatoshi - currTxObj.outSatoshi)/currTxObj.size).toFixed(4) }} </samp></td>
+            </tr>
           </tbody>
         </table>
 
@@ -72,9 +77,25 @@
                                style="max-width: 380px;">script: {{ txin.scriptType }}</samp></small>
                 </div>
                 <div v-if="txin.genesis != '00'">
-                  <router-link :to="{path:`/genesis/${txin.genesis}`}">
-                    <small><samp>genesis: {{ txin.genesis }}</samp></small>
-                  </router-link>
+                  <div v-if="txin.isNFT">
+                    <span class="badge badge-success">NFT {{txin.tokenId}}</span>
+                    <router-link :to="{path:`/nft/owners/${txin.codehash}/${txin.genesis}`}">
+                      <small><samp> 更多 </samp></small>
+                    </router-link>
+                  </div>
+                  <div v-else>
+                    <span class="badge badge-info">FT {{txin.tokenAmount / (10**txin.tokenDecimal)}}</span>
+                    <router-link :to="{path:`/ft/owners/${txin.codehash}/${txin.genesis}`}">
+                      <small><samp> 更多 </samp></small>
+                    </router-link>
+                  </div>
+                  <small><samp class="d-inline-block text-truncate"
+                               v-bind:title="txin.codehash"
+                               style="max-width: 380px;">codehash: {{ txin.codehash }}</samp></small>
+                  <small><samp class="d-inline-block text-truncate"
+                               v-bind:title="txin.genesis"
+                               style="max-width: 380px;">genesis: {{ txin.genesis }}</samp></small>
+
                 </div>
               </td>
               <td class="text-right">
@@ -112,9 +133,25 @@
                                style="max-width: 380px;">script: {{ txout.scriptType }}</samp></small>
                 </div>
                 <div v-if="txout.genesis != '00'">
-                  <router-link :to="{path:`/genesis/${txout.genesis}`}">
-                    <small><samp>genesis: {{ txout.genesis }}</samp></small>
-                  </router-link>
+                  <div v-if="txout.isNFT">
+                    <span class="badge badge-success">NFT {{txout.tokenId}}</span>
+                    <router-link :to="{path:`/nft/owners/${txout.codehash}/${txout.genesis}`}">
+                      <small><samp> 更多 </samp></small>
+                    </router-link>
+                  </div>
+                  <div v-else>
+                    <span class="badge badge-info">FT {{txout.tokenAmount / (10**txout.tokenDecimal)}}</span>
+                    <router-link :to="{path:`/ft/owners/${txout.codehash}/${txout.genesis}`}">
+                      <small><samp> 更多 </samp></small>
+                    </router-link>
+                  </div>
+                  <small><samp class="d-inline-block text-truncate"
+                               v-bind:title="txout.codehash"
+                               style="max-width: 380px;">codehash: {{ txout.codehash }}</samp></small>
+                  <small><samp class="d-inline-block text-truncate"
+                               v-bind:title="txout.genesis"
+                               style="max-width: 380px;">genesis: {{ txout.genesis }}</samp></small>
+
                 </div>
               </td>
               <td class="text-right">
@@ -249,19 +286,19 @@
      },
 
      viewTxOutsStatus: function (txid, idx) {
-       let url = this.$root.apiPoint + "tx/"+ txid +"/out/"+idx+"/spent"
+       let url = (this.$root.apiPoint + "tx/"+ txid +"/out/"+idx+"/spent")
        axios
-                     .get(url)
-                     .then(
-                       response => {
-                         if (response.data.code == 0) {
-                           this.viewTxInsInside(response.data.data.height, response.data.data.txid, 0)
-                           this.viewTxOutsInside(response.data.data.height, response.data.data.txid, 0)
-                         } else {
-                           this.$root.message = "unspent"
-                         }
-                       }
-                     )
+         .get(url)
+         .then(
+           response => {
+             if (response.data.code == 0) {
+               this.viewTxInsInside(response.data.data.height, response.data.data.txid, 0)
+               this.viewTxOutsInside(response.data.data.height, response.data.data.txid, 0)
+             } else {
+               this.$root.message = "unspent"
+             }
+           }
+         )
      },
 
      updateTxIns: function(txid, url, cursor) {
@@ -272,7 +309,6 @@
 		       cursor: cursor,
 		       size: 16
 	        }
-
          })
          .then(
            response => {

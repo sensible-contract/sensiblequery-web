@@ -24,9 +24,8 @@ const app = new Vue({
 
   el: '#app',
   data: {
-    apiPoint: "http://120.92.153.221:5555/",
+    apiPoint: "https://api.sensiblequery.com/",
     message: "",
-    navInputValue: ""
   },
   render: h => h(App)
 })

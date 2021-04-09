@@ -56,13 +56,7 @@
     </nav>
 
     <div class="col">
-      <slot></slot>
 
-      <div class="alert alert-info" role="alert">
-        {{message}}
-      </div>
-
-      <!-- router -->
       <router-view></router-view>
 
     </div>
@@ -74,10 +68,7 @@
   export default {
     data: function () {
       return {
-        apiPoint: "http://120.92.153.221:5555/",
-        // apiPoint: "http://192.168.31.236:5555/",
-        message: "",
-        navInputValue: "",
+        navInputValue: ""
       }
     },
     methods: {

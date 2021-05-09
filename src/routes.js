@@ -1,6 +1,7 @@
 
 let blocks = require('./pages/Blocks.vue')
 let transactions = require('./pages/Txs.vue')
+let mempool = require('./pages/Mempool.vue')
 let transaction = require('./pages/Tx.vue')
 let address = require('./pages/Address.vue')
 let utxo = require('./pages/Utxo.vue')
@@ -21,6 +22,7 @@ export default [
   { path: '/', component: blocks },
   { path: '/blocks', component: blocks },
   { path: '/txs', component: transactions },
+  { path: '/mempool', component: mempool },
   { path: '/tx', component: transaction },
   { path: '/address', component: address },
   { path: '/utxo', component: utxo },

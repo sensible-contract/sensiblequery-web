@@ -15,7 +15,14 @@
           <tbody>
             <tr>
               <th class="text-right">Height:</th>
-              <td class="text-left"><samp> {{ currTxObj.height }} </samp></td>
+              <td class="text-left">
+                <samp v-if="currTxObj.height == 4294967295">
+                  <span class="badge badge-warning">Unconfirmed</span>
+                </samp>
+                <samp v-else>
+                  {{ currTxObj.height }}
+                </samp>
+              </td>
             </tr>
             <tr>
               <th class="text-right">BlockId/Index:</th>
@@ -25,7 +32,7 @@
 		        </th>
             </tr>
 
-            <tr>
+            <tr v-if="currTxObj.height != 4294967295">
               <th class="text-right">Time:</th>
 		        <td class="text-left"><samp>{{ new Date(currTxObj.timestamp*1000).toISOString().slice(0, 19).replace('T', ' ') }}</samp></td>
             </tr>

@@ -34,7 +34,7 @@
                role="button"
                data-toggle="dropdown"
                aria-haspopup="true"
-               aria-expanded="false"> CodeHash </a>
+               aria-expanded="false"> More </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
               <router-link class="nav-link" to="/nft/codehash">NFTCode</router-link>
@@ -42,6 +42,10 @@
               <div class="dropdown-divider"></div>
 
               <router-link class="nav-link" to="/ft/codehash">FTCode</router-link>
+
+              <div class="dropdown-divider"></div>
+
+              <router-link class="nav-link" to="/mempool">Mempool</router-link>
 
             </div>
           </li>

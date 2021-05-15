@@ -7,16 +7,16 @@
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">codehash</th>
-          <th class="text-right">count</th>
-          <th class="text-right">in</th>
-          <th class="text-right">out</th>
+          <th class="text-center">codehash (see all genesis)</th>
+          <th class="text-right">NFT total</th>
+          <th class="text-right">in times</th>
+          <th class="text-right">out times</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(info, index) in codeHashInfo">
           <td class="text-right"><samp>{{ index }}</samp></td>
-          <td class="text-left">
+          <td class="text-center">
             <router-link :to="{path:`/nft/codehash/${info.codehash}`}">
               <samp>{{ info.codehash }}</samp>
             </router-link>

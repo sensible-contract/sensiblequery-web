@@ -10,7 +10,7 @@
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">utxo</th>
+          <th class="text-center">UTXO</th>
           <th class="text-right">tokenId</th>
           <th class="text-right">satoshi</th>
         </tr>

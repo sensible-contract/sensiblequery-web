@@ -10,21 +10,26 @@
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">address</th>
-          <th class="text-right">count</th>
+          <th class="text-center">address (see all NFT hold)</th>
+          <th class="text-left">NFT total (see UTXO)</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(info, index) in currOwners">
           <td class="text-right"><samp>{{ index }}</samp></td>
-          <td class="text-left">
-            <router-link :to="{path:`/nft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
+
+          <td class="text-center">
+            <router-link :to="{path:`/nft/summary/${info.address}`}">
               <samp>{{ info.address }}</samp>
             </router-link>
           </td>
-          <td class="text-right">
-            <samp>{{ info.count }}</samp>
+
+          <td class="text-left">
+            <router-link :to="{path:`/nft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
+              <samp>{{ info.count }}</samp>
+            </router-link>
           </td>
+
         </tr>
       </tbody>
     </table>

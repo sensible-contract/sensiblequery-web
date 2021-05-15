@@ -10,21 +10,26 @@
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">address</th>
-          <th class="text-right">balance</th>
+          <th class="text-center">address (see all FT hold)</th>
+          <th class="text-left">FT balance (see UTXO)</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(info, index) in currOwners">
           <td class="text-right"><samp>{{ index }}</samp></td>
-          <td class="text-left">
-            <router-link :to="{path:`/ft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
+
+          <td class="text-center">
+            <router-link :to="{path:`/ft/summary/${info.address}`}">
               <samp>{{ info.address }}</samp>
             </router-link>
           </td>
-          <td class="text-right">
-            <samp>{{ info.balance }}</samp>
+
+          <td class="text-left">
+            <router-link :to="{path:`/ft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
+              <samp>{{ info.balance }}</samp>
+            </router-link>
           </td>
+
         </tr>
       </tbody>
     </table>

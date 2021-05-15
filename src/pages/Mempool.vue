@@ -8,8 +8,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="text-right">Mempool Tx Count:</th>
-              <td class="text-left"><samp> {{ currTotalTx }} </samp></td>
+              <th class="text-left"> Txs in Mempool: <samp> {{ currTotalTx }} </samp></th>
             </tr>
           </thead>
         </table>

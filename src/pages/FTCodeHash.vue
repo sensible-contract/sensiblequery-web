@@ -7,10 +7,10 @@
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">codehash</th>
-          <th class="text-right">count</th>
-          <th class="text-right">in</th>
-          <th class="text-right">out</th>
+          <th class="text-center">codehash (see all genesis)</th>
+          <th class="text-right">FT total</th>
+          <th class="text-right">in volumes </th>
+          <th class="text-right">out volumes</th>
         </tr>
       </thead>
       <tbody>

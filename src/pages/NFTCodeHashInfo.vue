@@ -10,10 +10,10 @@
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">genesis</th>
-          <th class="text-right">count</th>
-          <th class="text-right">in</th>
-          <th class="text-right">out</th>
+          <th class="text-center">genesis (see all owners)</th>
+          <th class="text-right">NFT total</th>
+          <th class="text-right">in times</th>
+          <th class="text-right">out times</th>
         </tr>
       </thead>
       <tbody>

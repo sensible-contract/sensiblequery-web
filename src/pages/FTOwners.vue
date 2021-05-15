@@ -12,6 +12,7 @@
           <th class="text-right">#</th>
           <th class="text-center">address (see all FT hold)</th>
           <th class="text-left">FT balance (see UTXO)</th>
+          <th class="text-left">pending</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,10 @@
             <router-link :to="{path:`/ft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
               <samp>{{ info.balance }}</samp>
             </router-link>
+          </td>
+
+          <td class="text-left">
+            <samp>{{ info.pending_balance }}</samp>
           </td>
 
         </tr>

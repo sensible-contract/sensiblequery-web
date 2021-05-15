@@ -12,7 +12,8 @@
           <th class="text-right">#</th>
           <th class="text-center">codehash (see all genesis)</th>
           <th class="text-center">genesis (see all owners)</th>
-          <th class="text-left">NFT total (see UTXO)</th>
+          <th class="text-left"> count (UTXO)</th>
+          <th class="text-left"> pending</th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +36,10 @@
             <router-link :to="{path:`/nft/utxo/${info.codehash}/${info.genesis}/${currAddress}`}">
               <samp>{{ info.count }}</samp>
             </router-link>
+          </td>
+
+          <td class="text-left">
+              <samp>{{ info.pending_count }}</samp>
           </td>
 
         </tr>

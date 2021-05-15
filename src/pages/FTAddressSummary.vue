@@ -12,7 +12,8 @@
           <th class="text-right">#</th>
           <th class="text-center">codehash (see all genesis)</th>
           <th class="text-center">genesis (see all owners)</th>
-          <th class="text-left">FT balance (see UTXO)</th>
+          <th class="text-left">FT balance (UTXO)</th>
+          <th class="text-left">pending</th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +36,10 @@
             <router-link :to="{path:`/ft/utxo/${info.codehash}/${info.genesis}/${currAddress}`}">
               <samp>{{ info.balance }}</samp>
             </router-link>
+          </td>
+
+          <td class="text-left">
+            <samp>{{ info.pending_balance }}</samp>
           </td>
 
         </tr>

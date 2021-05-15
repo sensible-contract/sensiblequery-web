@@ -25,6 +25,10 @@
             <div>
               <small><samp>script: {{ txout.scriptType }}</samp></small>
             </div>
+            <samp v-if="txout.height == 4294967295">
+              <span class="badge badge-warning">Unconfirmed</span>
+            </samp>
+
           </td>
           <td class="text-right">
             <span class="badge badge-info">FT {{txout.tokenAmount / (10**txout.tokenDecimal)}}</span>

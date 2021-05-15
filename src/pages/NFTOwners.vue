@@ -12,6 +12,7 @@
           <th class="text-right">#</th>
           <th class="text-center">address (see all NFT hold)</th>
           <th class="text-left">NFT total (see UTXO)</th>
+          <th class="text-left">NFT pending total</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,10 @@
             <router-link :to="{path:`/nft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
               <samp>{{ info.count }}</samp>
             </router-link>
+          </td>
+
+          <td class="text-left">
+              <samp>{{ info.pending_count }}</samp>
           </td>
 
         </tr>

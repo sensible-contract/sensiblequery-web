@@ -17,7 +17,7 @@
             <router-link class="nav-link" to="/address">Address</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/utxo">UTXO</router-link>
+              <router-link class="nav-link" to="/mempool">Mempool</router-link>
           </li>
 
           <li class="nav-item">
@@ -45,7 +45,7 @@
 
               <div class="dropdown-divider"></div>
 
-              <router-link class="nav-link" to="/mempool">Mempool</router-link>
+              <router-link class="nav-link" to="/utxo">UTXO</router-link>
 
             </div>
           </li>
@@ -79,12 +79,18 @@
       pressNavButton: function () {
         if (this.$route.path.startsWith("/blocks")) {
           this.$router.push(`/blocks/id/${this.navInputValue}`)
+
         } else if (this.$route.path.startsWith("/txs")) {
           this.$router.push(`/txs-of-blkid/${this.navInputValue}`)
+
         } else if (this.$route.path.startsWith("/tx")) {
           this.$router.push(`/txid/${this.navInputValue}`)
+        } else if (this.$route.path.startsWith("/mempool")) {
+          this.$router.push(`/txid/${this.navInputValue}`)
+
         } else if (this.$route.path.startsWith("/address")) {
           this.$router.push(`/address/${this.navInputValue}`)
+
         } else if (this.$route.path.startsWith("/utxo")) {
           this.$router.push(`/utxo/${this.navInputValue}`)
         }

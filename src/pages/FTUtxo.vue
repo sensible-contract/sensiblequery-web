@@ -31,7 +31,7 @@
 
           </td>
           <td class="text-right">
-            <span class="badge badge-info">FT {{txout.tokenAmount / (10**txout.tokenDecimal)}}</span>
+            <span class="badge badge-info">FT: {{txout.tokenAmount / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
           </td>
           <td class="text-right"><samp>{{ txout.satoshi/100000000.0 }}</samp></td>
         </tr>

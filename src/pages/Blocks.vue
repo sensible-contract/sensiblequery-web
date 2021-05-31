@@ -105,6 +105,7 @@
      },
 
      viewBlockRange: function (step) {
+       this.Blocks = []
        this.blockEndHeight = parseInt(this.blockEndHeight) + step
        this.blockStartHeight = this.blockEndHeight - this.pageSize
        if (this.blockStartHeight < 0) {

@@ -32,7 +32,7 @@
           </td>
 
           <td class="text-left">
-            <samp>{{ info.pending_balance }}</samp>
+            <samp>{{ info.pendingBalance }}</samp>
           </td>
 
         </tr>

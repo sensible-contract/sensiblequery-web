@@ -91,7 +91,7 @@
                     </router-link>
                   </div>
                   <div v-else>
-                    <span class="badge badge-info">FT {{txin.tokenAmount / (10**txin.tokenDecimal)}}</span>
+                    <span class="badge badge-info">FT: {{txin.tokenAmount / (10**txin.tokenDecimal)}} {{txin.tokenSymbol}}</span>
                     <router-link :to="{path:`/ft/owners/${txin.codehash}/${txin.genesis}`}">
                       <small><samp> 更多 </samp></small>
                     </router-link>
@@ -147,7 +147,7 @@
                     </router-link>
                   </div>
                   <div v-else>
-                    <span class="badge badge-info">FT {{txout.tokenAmount / (10**txout.tokenDecimal)}}</span>
+                    <span class="badge badge-info">FT: {{txout.tokenAmount / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
                     <router-link :to="{path:`/ft/owners/${txout.codehash}/${txout.genesis}`}">
                       <small><samp> 更多 </samp></small>
                     </router-link>

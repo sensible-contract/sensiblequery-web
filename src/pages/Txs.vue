@@ -8,16 +8,11 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="text-right">Height:</th>
-              <th class="text-left"><samp> {{ currBlockObj.height }} </samp></th>
+              <th class="text-right">Height/BlockId:</th>
+              <th class="text-left"><samp> {{ currBlockObj.height }} / {{currBlockId}} </samp></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th class="text-right">BlockId:</th>
-              <th class="text-left"><samp>{{currBlockId}}</samp></th>
-            </tr>
-
             <tr>
               <th class="text-right">Prev BlockId:</th>
               <td class="text-left">
@@ -60,6 +55,10 @@
       </div>
     </div>
 
+    <div v-if="currBlockObj.ntx > 16">
+      <Pagination :total="currBlockObj.ntx" @change="changeTxPagination"></Pagination>
+    </div>
+
     <table class="table">
       <thead>
         <tr>
@@ -86,10 +85,6 @@
         </tr>
       </tbody>
     </table>
-
-    <div v-if="currBlockObj.ntx > 16">
-      <Pagination :total="currBlockObj.ntx" @change="changeTxPagination"></Pagination>
-    </div>
 
   </div>
 </template>

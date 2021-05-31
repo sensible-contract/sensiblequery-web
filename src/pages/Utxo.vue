@@ -16,7 +16,7 @@
           <tbody>
             <tr>
               <th class="text-left"> Pending Balance: </samp></th>
-              <th class="text-left"> <samp> {{ currBalance.pending_satoshi/100000000.0 }} </samp></th>
+              <th class="text-left"> <samp> {{ currBalance.pendingSatoshi/100000000.0 }} </samp></th>
             </tr>
           </tbody>
         </table>

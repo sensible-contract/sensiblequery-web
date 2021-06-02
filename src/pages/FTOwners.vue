@@ -27,12 +27,12 @@
 
           <td class="text-left">
             <router-link :to="{path:`/ft/utxo/${currCodeHash}/${currGenesis}/${info.address}`}">
-              <samp>{{ info.balance }}</samp>
+              <span class="badge badge-info">FT: {{info.balance / (10**info.decimal)}}</span>
             </router-link>
           </td>
 
           <td class="text-left">
-            <samp>{{ info.pendingBalance }}</samp>
+            <span class="badge badge-info">FT: {{info.pendingBalance / (10**info.decimal)}}</span>
           </td>
 
         </tr>

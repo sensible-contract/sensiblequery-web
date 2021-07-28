@@ -1,19 +1,18 @@
 <template>
   <div>
-    <h3> FT UTXO:
+    <h3> NFT History:
       <small>
         <samp>{{ currCodeHash }} / {{ currGenesis }} / {{ currAddress }} </samp>
       </small>
     </h3>
-
-    <router-link :to="{path:`/ft/history/${currCodeHash}/${currGenesis}/${currAddress}`}"><samp>View History</samp></router-link>
+    <router-link :to="{path:`/nft/utxo/${currCodeHash}/${currGenesis}/${currAddress}`}"><samp>View UTXO</samp></router-link>
 
     <table class="table">
       <thead>
         <tr>
           <th class="text-right">#</th>
-          <th class="text-center">utxo</th>
-          <th class="text-right">tokenAmount</th>
+          <th class="text-center">UTXO</th>
+          <th class="text-right">tokenIndex</th>
           <th class="text-right">satoshi</th>
         </tr>
       </thead>
@@ -33,7 +32,7 @@
 
           </td>
           <td class="text-right">
-            <span class="badge badge-info">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
+            <span class="badge badge-success">NFT {{txout.tokenIndex}}</span>
           </td>
           <td class="text-right"><samp>{{ txout.satoshi/100000000.0 }}</samp></td>
         </tr>
@@ -63,7 +62,9 @@
           this.currUTXOs = []
         }
 
-        this.viewInfoByCodeHash(to.params.codehash, to.params.genesis, to.params.address)
+        if (to.path != "/nft/utxo" ) {
+          this.viewInfoByCodeHash(to.params.codehash, to.params.genesis, to.params.address)
+        }
       }
     },
 
@@ -73,7 +74,9 @@
       if (this.currUTXOs === undefined) {
         this.currUTXOs = []
       }
-      this.viewInfoByCodeHash(this.$route.params.codehash, this.$route.params.genesis, this.$route.params.address)
+      if (this.$route.path != "/nft/utxo") {
+        this.viewInfoByCodeHash(this.$route.params.codehash, this.$route.params.genesis, this.$route.params.address)
+      }
     },
 
     methods: {
@@ -85,7 +88,7 @@
         this.currUTXOs = []
         this.$root.message = "..."
         axios
-          .get(this.$root.apiPoint + "ft/utxo/"+ codehash + "/" + genesis + "/" + address)
+          .get(this.$root.apiPoint + "nft/history/"+ codehash + "/" + genesis + "/" + address)
           .then(
             response => {
               if (response.data.code == 0) {

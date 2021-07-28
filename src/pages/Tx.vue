@@ -85,13 +85,13 @@
                 </div>
                 <div v-if="txin.genesis != '00'">
                   <div v-if="txin.isNFT">
-                    <span class="badge badge-success">NFT {{txin.tokenId}}</span>
+                    <span class="badge badge-success">NFT {{txin.tokenIndex}}</span>
                     <router-link :to="{path:`/nft/owners/${txin.codehash}/${txin.genesis}`}">
                       <small><samp> 更多 </samp></small>
                     </router-link>
                   </div>
                   <div v-else>
-                    <span class="badge badge-info">FT: {{txin.tokenAmount / (10**txin.tokenDecimal)}} {{txin.tokenSymbol}}</span>
+                    <span class="badge badge-info">FT: {{parseInt(txin.tokenAmount) / (10**txin.tokenDecimal)}} {{txin.tokenSymbol}}</span>
                     <router-link :to="{path:`/ft/owners/${txin.codehash}/${txin.genesis}`}">
                       <small><samp> 更多 </samp></small>
                     </router-link>
@@ -141,13 +141,13 @@
                 </div>
                 <div v-if="txout.genesis != '00'">
                   <div v-if="txout.isNFT">
-                    <span class="badge badge-success">NFT {{txout.tokenId}}</span>
+                    <span class="badge badge-success">NFT {{txout.tokenIndex}}</span>
                     <router-link :to="{path:`/nft/owners/${txout.codehash}/${txout.genesis}`}">
                       <small><samp> 更多 </samp></small>
                     </router-link>
                   </div>
                   <div v-else>
-                    <span class="badge badge-info">FT: {{txout.tokenAmount / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
+                    <span class="badge badge-info">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
                     <router-link :to="{path:`/ft/owners/${txout.codehash}/${txout.genesis}`}">
                       <small><samp> 更多 </samp></small>
                     </router-link>

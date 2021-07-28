@@ -6,12 +6,14 @@
       </small>
     </h3>
 
+    <router-link :to="{path:`/nft/history/${currCodeHash}/${currGenesis}/${currAddress}`}"><samp>View History</samp></router-link>
+
     <table class="table">
       <thead>
         <tr>
           <th class="text-right">#</th>
           <th class="text-center">UTXO</th>
-          <th class="text-right">tokenId</th>
+          <th class="text-right">tokenIndex</th>
           <th class="text-right">satoshi</th>
         </tr>
       </thead>
@@ -31,7 +33,7 @@
 
           </td>
           <td class="text-right">
-            <span class="badge badge-success">NFT {{txout.tokenId}}</span>
+            <span class="badge badge-success">NFT {{txout.tokenIndex}}</span>
           </td>
           <td class="text-right"><samp>{{ txout.satoshi/100000000.0 }}</samp></td>
         </tr>

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h3> FT UTXO:
+    <h3> FT History:
       <small>
         <samp>{{ currCodeHash }} / {{ currGenesis }} / {{ currAddress }} </samp>
       </small>
     </h3>
 
-    <router-link :to="{path:`/ft/history/${currCodeHash}/${currGenesis}/${currAddress}`}"><samp>View History</samp></router-link>
+    <router-link :to="{path:`/ft/utxo/${currCodeHash}/${currGenesis}/${currAddress}`}"><samp>View UTXO</samp></router-link>
 
     <table class="table">
       <thead>
@@ -33,9 +33,15 @@
 
           </td>
           <td class="text-right">
-            <span class="badge badge-info">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
+            <span v-if="txout.ioType" class="badge badge-info">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
+            <span v-else class="badge badge-danger">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
           </td>
-          <td class="text-right"><samp>{{ txout.satoshi/100000000.0 }}</samp></td>
+
+          <td class="text-right">
+            <samp v-if="txout.ioType">+{{ txout.satoshi/100000000.0 }}</samp>
+            <code v-else>-{{ txout.satoshi/100000000.0 }}</code>
+          </td>
+
         </tr>
       </tbody>
     </table>
@@ -85,7 +91,7 @@
         this.currUTXOs = []
         this.$root.message = "..."
         axios
-          .get(this.$root.apiPoint + "ft/utxo/"+ codehash + "/" + genesis + "/" + address)
+          .get(this.$root.apiPoint + "ft/history/"+ codehash + "/" + genesis + "/" + address)
           .then(
             response => {
               if (response.data.code == 0) {

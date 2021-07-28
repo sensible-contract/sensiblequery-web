@@ -12,6 +12,7 @@ let nftCodehashInfo = require('./pages/NFTCodeHashInfo.vue')
 
 let nftOwners = require('./pages/NFTOwners.vue')
 let nftUtxo = require('./pages/NFTUtxo.vue')
+let nftHistory = require('./pages/NFTHistory.vue')
 let nftAddressSummary = require('./pages/NFTAddressSummary.vue')
 
 // ft
@@ -20,6 +21,7 @@ let ftCodehashInfo = require('./pages/FTCodeHashInfo.vue')
 
 let ftOwners = require('./pages/FTOwners.vue')
 let ftUtxo = require('./pages/FTUtxo.vue')
+let ftHistory = require('./pages/FTHistory.vue')
 let ftAddressSummary = require('./pages/FTAddressSummary.vue')
 
 export default [
@@ -35,12 +37,14 @@ export default [
   { path: '/nft/codehash/:codehash', component: nftCodehashInfo },
   { path: '/nft/owners/:codehash/:genesis', component: nftOwners },
   { path: '/nft/utxo/:codehash/:genesis/:address', component: nftUtxo },
+  { path: '/nft/history/:codehash/:genesis/:address', component: nftHistory },
   { path: '/nft/summary/:address', component: nftAddressSummary },
 
   { path: '/ft/codehash', component: ftCodehash },
   { path: '/ft/codehash/:codehash', component: ftCodehashInfo },
   { path: '/ft/owners/:codehash/:genesis', component: ftOwners },
   { path: '/ft/utxo/:codehash/:genesis/:address', component: ftUtxo },
+  { path: '/ft/history/:codehash/:genesis/:address', component: ftHistory },
   { path: '/ft/summary/:address', component: ftAddressSummary },
 
   { path: '/blocks/id/:blkid', component: blocks },

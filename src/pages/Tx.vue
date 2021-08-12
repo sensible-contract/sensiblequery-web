@@ -83,7 +83,7 @@
                                v-bind:title="txin.scriptType"
                                style="max-width: 380px;">script: {{ txin.scriptType }}</samp></small>
                 </div>
-                <div v-if="txin.genesis != '00'">
+                <div v-if="txin.genesis != '' && txin.genesis != '00'">
                   <div v-if="txin.isNFT">
                     <span class="badge badge-success">NFT {{txin.tokenIndex}}</span>
                     <router-link :to="{path:`/nft/owners/${txin.codehash}/${txin.genesis}`}">
@@ -139,7 +139,7 @@
                                v-bind:title="txout.scriptType"
                                style="max-width: 380px;">script: {{ txout.scriptType }}</samp></small>
                 </div>
-                <div v-if="txout.genesis != '00'">
+                <div v-if="txout.genesis != '' && txout.genesis != '00'">
                   <div v-if="txout.isNFT">
                     <span class="badge badge-success">NFT {{txout.tokenIndex}}</span>
                     <router-link :to="{path:`/nft/owners/${txout.codehash}/${txout.genesis}`}">

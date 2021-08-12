@@ -32,9 +32,15 @@
 
           </td>
           <td class="text-right">
-            <span class="badge badge-success">NFT {{txout.tokenIndex}}</span>
+            <span v-if="txout.ioType" class="badge badge-success">NFT {{txout.tokenIndex}}</span>
+            <span v-else class="badge badge-danger">NFT {{txout.tokenIndex}}</span>
           </td>
-          <td class="text-right"><samp>{{ txout.satoshi/100000000.0 }}</samp></td>
+
+          <td class="text-right">
+            <samp v-if="txout.ioType">+{{ txout.satoshi/100000000.0 }}</samp>
+            <code v-else>-{{ txout.satoshi/100000000.0 }}</code>
+          </td>
+
         </tr>
       </tbody>
     </table>

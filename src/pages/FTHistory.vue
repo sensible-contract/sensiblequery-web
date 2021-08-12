@@ -33,8 +33,8 @@
 
           </td>
           <td class="text-right">
-            <span v-if="txout.ioType" class="badge badge-info">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
-            <span v-else class="badge badge-danger">FT: {{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
+            <span v-if="txout.ioType" class="badge badge-info">FT: +{{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
+            <span v-else class="badge badge-danger">FT: -{{parseInt(txout.tokenAmount) / (10**txout.tokenDecimal)}} {{txout.tokenSymbol}}</span>
           </td>
 
           <td class="text-right">

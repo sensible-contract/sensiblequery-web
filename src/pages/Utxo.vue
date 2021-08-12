@@ -42,7 +42,7 @@
             <div>
               <small><samp>script: {{ txout.scriptType }}</samp></small>
             </div>
-            <div v-if="txout.genesis != '00' && txout.genesis != undefined">
+            <div v-if="txout.genesis != '' && txout.genesis != '00' && txout.genesis != undefined">
               <router-link :to="{path:`/genesis/${txout.genesis}`}">
                 <small><samp>genesis: {{ txout.genesis }}</samp></small>
               </router-link>
